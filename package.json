@@ -1,0 +1,28 @@
+{
+  "name": "react-simple-error-boundary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsup --watch --onSuccess 'tsup --dts-only'",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck & npm run lint",
+    "build": "tsup",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prepublishOnly": "rimraf dist & npm run lint:fix & npm run build"
+  },
+  "keywords": [],
+  "author": "js2me",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "<19"
+  },
+  "devDependencies": {
+    "js2me-eslint-config": "0.0.7",
+    "@types/react": "<19",
+    "tsup": "8.3.0",
+    "eslint": "8.57.1"
+  }
+}
