@@ -1,6 +1,6 @@
 {
   "name": "react-simple-error-boundary",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Really simple React Error boundary component",
   "repository": {
     "type": "git",
@@ -16,6 +16,10 @@
     "prepublishOnly": "rimraf dist & npm run lint:fix & npm run build"
   },
   "type": "module",
+  "files": [
+    "LICENSE",
+    "dist"
+  ],
   "keywords": [
     "react",
     "erorr",
