@@ -1,10 +1,10 @@
 import { Component, ComponentType, ReactNode } from 'react';
 
-export type ErrorComponent = ComponentType<{ error: Error }>;
+export type ErrorComponentType = ComponentType<{ error: Error }>;
 
 export interface ErrorBoundaryProps {
   children: ReactNode;
-  errorComponent?: ErrorComponent;
+  errorComponent?: ErrorComponentType;
 }
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps> {
