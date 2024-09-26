@@ -1,9 +1,13 @@
 {
   "name": "react-simple-error-boundary",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Really simple React Error boundary component",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/js2me/react-simple-error-boundary"
+  },
   "scripts": {
     "dev": "tsup --watch --onSuccess 'tsup --dts-only'",
     "typecheck": "tsc --noEmit",
@@ -13,9 +17,13 @@
     "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "rimraf dist & npm run lint:fix & npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "erorr",
+    "boundary"
+  ],
   "author": "js2me",
-  "license": "ISC",
+  "license": "MIT",
   "peerDependencies": {
     "react": "<19"
   },
