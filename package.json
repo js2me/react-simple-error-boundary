@@ -1,21 +1,20 @@
 {
   "name": "react-simple-error-boundary",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Really simple React Error boundary component",
   "repository": {
     "type": "git",
     "url": "https://github.com/js2me/react-simple-error-boundary"
   },
   "scripts": {
-    "dev": "tsup --watch --onSuccess 'tsup --dts-only'",
-    "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck & npm run lint",
-    "build": "tsup",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "prepublishOnly": "rimraf dist & npm run lint:fix & npm run build"
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean && eslint . --fix",
+    "build": "tsc",
+    "postbuild": "node ./post-build.mjs",
+    "prepub": "pnpm run build",
+    "pub": "cd dist && npm publish",
+    "postpub": "npm run clean"
   },
-  "type": "module",
   "keywords": [
     "react",
     "error",
@@ -23,28 +22,15 @@
   ],
   "author": "js2me",
   "license": "MIT",
+  "type": "module",
   "peerDependencies": {
     "react": "<19"
   },
   "devDependencies": {
-    "js2me-eslint-config": "0.0.7",
     "@types/react": "<19",
-    "tsup": "8.3.0",
     "eslint": "8.57.1",
+    "exports-post-build-script": "github:js2me/exports-post-build-script",
+    "js2me-eslint-config": "1.0.0",
     "typescript": "5.6.2"
-  },
-  "files": [
-    "LICENSE",
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.dts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json"
   }
 }
