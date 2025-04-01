@@ -2,7 +2,7 @@
 
 This is simple ErrorBoundary component    
 
-## Usage  
+## Usage with Component  
 
 ```tsx
 import { ErrorBoundary } from "react-simple-error-boundary";
@@ -10,4 +10,12 @@ import { ErrorBoundary } from "react-simple-error-boundary";
 <ErrorBoundary errorComponent={YourErrorComponentHandler}>
   <PageOrComponent/>
 </ErrorBoundary>
+```
+
+## Usage with HOC   
+
+```tsx
+import { withErrorBoundary } from "react-simple-error-boundary";
+
+const WrappedPageOrComponent = withErrorBoundary(PageOrComponent, YourErrorComponentHandler);
 ```
