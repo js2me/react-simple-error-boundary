@@ -1,26 +1,48 @@
-import { Component, ComponentType, ReactNode } from 'react';
+import { Component } from 'react';
 
-export type ErrorComponentType = ComponentType<{ error: Error }>;
+export type ErrorComponentType = React.ComponentType<{ error: Error }>;
 
 export interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: React.ReactNode;
   errorComponent?: ErrorComponentType;
+  error?: any;
+  onCatch?: (error: Error) => void;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps> {
-  state = {} as { error?: Error; didCatch?: true };
+interface ErrorBoundaryState {
+  error?: Error;
+}
+
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  state = {} as ErrorBoundaryState;
 
   static getDerivedStateFromError(error: Error) {
     return { error };
   }
 
-  render() {
-    if (this.state.error != null) {
-      const { errorComponent: ErrorComponent } = this.props;
-
-      return ErrorComponent && <ErrorComponent error={this.state.error} />;
+  getSnapshotBeforeUpdate(
+    previousProps: Readonly<ErrorBoundaryProps>,
+    previousState: Readonly<ErrorBoundaryState>,
+  ) {
+    if (this.state.error && !previousState.error) {
+      this.props.onCatch?.(this.state.error);
     }
 
-    return this.props.children;
+    return null;
+  }
+
+  render() {
+    const error = this.props.error || this.state.error;
+
+    if (error == null) {
+      return this.props.children;
+    }
+
+    const { errorComponent: ErrorComponent } = this.props;
+
+    return ErrorComponent && <ErrorComponent error={error} />;
   }
 }
