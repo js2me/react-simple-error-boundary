@@ -1,2 +1,2 @@
-export * from './error-boundary';
-export * from './with-error-boundary';
+export * from './error-boundary.js';
+export * from './with-error-boundary.js';

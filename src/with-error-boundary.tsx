@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
-import { ErrorBoundary } from './error-boundary';
+import { ErrorBoundary } from './error-boundary.js';
 
 declare const process: { env: { NODE_ENV?: string } };
 

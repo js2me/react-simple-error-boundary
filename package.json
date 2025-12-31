@@ -1,19 +1,30 @@
 {
   "name": "react-simple-error-boundary",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "description": "Really simple React Error boundary component",
   "repository": {
     "type": "git",
     "url": "https://github.com/js2me/react-simple-error-boundary"
   },
   "scripts": {
+    "prepare": "pnpm dev:install-hooks",
     "clean": "rimraf dist",
-    "check": "eslint . --fix",
+    "lint:check": "pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
+    "ts:check": "tsc --noEmit",
+    "check": "npm run lint:check && npm run ts:check",
     "prebuild": "npm run clean && npm run check",
-    "build": "tsc && node ./post-build.mjs",
+    "build:watch": "pnpm build && nodemon --delay 0.5 --watch src --ext ts,tsx --exec \"pnpm build\"",
+    "build": "vite build",
+    "pub": "pnpm build && sborshik publish --useDistDir",
+    "pub:next": "PUBLISH=true PUBLISH_TAG=next PUBLISH_FORCE=true pnpm run build",
     "pub:patch": "PUBLISH=true PUBLISH_VERSION=patch pnpm run build",
     "pub:minor": "PUBLISH=true PUBLISH_VERSION=minor pnpm run build",
-    "pub:major": "PUBLISH=true PUBLISH_VERSION=major pnpm run build"
+    "pub:major": "PUBLISH=true PUBLISH_VERSION=major pnpm run build",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest watch --config vitest.config.ts",
+    "test:coverage": "vitest run --config vitest.config.ts --coverage",
+    "pub:patch:next": "PUBLISH=true PUBLISH_VERSION=patch PUBLISH_TAG=next PUBLISH_FORCE=true pnpm run build",
+    "dev:install-hooks": "if [ -z \"$CI\" ]; then lefthook install; fi"
   },
   "keywords": [
     "react",
@@ -24,13 +35,27 @@
   "license": "MIT",
   "type": "module",
   "peerDependencies": {
-    "react": "<19"
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "@types/react": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@types/react": "<19",
-    "eslint": "8.57.1",
-    "js2me-exports-post-build-script": "2.0.10",
-    "js2me-eslint-config": "1.0.4",
-    "typescript": "5.6.2"
+    "@biomejs/biome": "2.2.6",
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.5",
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "@vitest/coverage-istanbul": "^3.1.2",
+    "commitfmt": "^1.0.4",
+    "js2me-biome-config": "^1.0.6",
+    "js2me-exports-post-build-script": "^3.0.2",
+    "jsdom": "^26.1.0",
+    "lefthook": "^1.11.13",
+    "nodemon": "^3.1.10",
+    "rimraf": "^6.0.1",
+    "sborshik": "^1.8.2",
+    "typescript": "^5.8.3",
+    "vite": "^7.1.12",
+    "vitest": "^3.1.2"
   }
 }

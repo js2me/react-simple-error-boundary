@@ -7,7 +7,12 @@ This is simple ErrorBoundary component
 ```tsx
 import { ErrorBoundary } from "react-simple-error-boundary";
 
-<ErrorBoundary errorComponent={YourErrorComponentHandler}>
+<ErrorBoundary
+  errorComponent={YourErrorComponentHandler}
+  onCatch={e => {
+    /* do something */
+  }}
+>
   <PageOrComponent/>
 </ErrorBoundary>
 ```
