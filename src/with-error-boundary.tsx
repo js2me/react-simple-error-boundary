@@ -1,16 +1,25 @@
 import type { ComponentType } from 'react';
 
-import { ErrorBoundary } from './error-boundary.js';
+import { ErrorBoundary, type ErrorBoundaryProps } from './error-boundary.js';
 
 declare const process: { env: { NODE_ENV?: string } };
 
 export function withErrorBoundary<P extends Record<string, any>>(
   Component: React.ComponentType<P>,
-  errorComponent: ComponentType<any>,
+  propsOrErrorComponent:
+    | Omit<ErrorBoundaryProps, 'children'>
+    | ComponentType<any>,
 ) {
+  const errorBoundaryProps: Omit<ErrorBoundaryProps, 'children'> =
+    typeof propsOrErrorComponent === 'function'
+      ? {
+          errorComponent: propsOrErrorComponent,
+        }
+      : propsOrErrorComponent;
+
   function WithErrorBoudnary(props: P) {
     return (
-      <ErrorBoundary errorComponent={errorComponent}>
+      <ErrorBoundary {...errorBoundaryProps}>
         <Component {...props} />
       </ErrorBoundary>
     );
