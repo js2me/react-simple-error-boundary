@@ -1,5 +1,11 @@
 # react-simple-error-boundary
 
+## 1.3.1
+
+### Patch Changes
+
+- [`5932d45`](https://github.com/js2me/react-simple-error-boundary/commit/5932d45e91de3cbfb49468cc21feedd06faea431) Thanks [@js2me](https://github.com/js2me)! - fix getSnapshotBeforeUpdate react warning
+
 ## 1.3.0
 
 ### Minor Changes
