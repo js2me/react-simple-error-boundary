@@ -23,15 +23,10 @@ export class ErrorBoundary extends Component<
     return { error };
   }
 
-  getSnapshotBeforeUpdate(
-    previousProps: Readonly<ErrorBoundaryProps>,
-    previousState: Readonly<ErrorBoundaryState>,
-  ) {
+  componentDidUpdate(previousState: Readonly<ErrorBoundaryState>) {
     if (this.state.error && !previousState.error) {
       this.props.onCatch?.(this.state.error);
     }
-
-    return null;
   }
 
   render() {
